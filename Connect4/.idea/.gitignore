@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../../../../:\Users\jussi\OneDrive\Documenten\GitHub\Connect4\.idea/dataSources/
+/../../../../../../../../../:\Users\jussi\OneDrive\Bureaublad\angular8-springboot-websocket-master\backend\springboot-stomp-websocket\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/

@@ -6,14 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="rest-server" />
-        <module name="websocket-server" />
+        <module name="Connect4" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Connect4" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="rest-server" options="-parameters" />
+      <module name="Connect4" options="-parameters" />
     </option>
   </component>
 </project>
