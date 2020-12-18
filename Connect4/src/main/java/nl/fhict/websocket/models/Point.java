@@ -1,4 +1,4 @@
-package net.javaguides.springboot.websocket.models;
+package nl.fhict.websocket.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

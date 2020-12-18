@@ -1,7 +1,7 @@
-package net.javaguides.springboot.websocket.models;
+package nl.fhict.websocket.models;
 
 import lombok.Getter;
-import net.javaguides.springboot.websocket.enums.DiscState;
+import nl.fhict.websocket.enums.DiscState;
 
 import java.util.ArrayList;
 
@@ -15,13 +15,27 @@ public class Match {
     @Getter
     private int turn;
 
-    public Match(Player player) {
+    public Match(Player player, int id) {
+        this.id = id;
+        players = new ArrayList<>();
         players.add(player);
     }
 
     public void addPlayer(Player player) {
         players.add(player);
         initiateGame();
+    }
+
+    public Disc placeDisc(Point point) {
+        DiscState discState = DiscState.values()[turn];
+        Disc disc = findDisc(point);
+        disc.place(discState);
+        switchTurn();
+        return disc;
+    }
+
+    public Player getLastPlacedPlayer(){
+        return players.get(turn);
     }
 
     private void initiateGame() {
@@ -42,14 +56,6 @@ public class Match {
             }
             grid.add(column);
         }
-    }
-
-    public Disc placeDisc(Point point) {
-        DiscState discState = DiscState.values()[turn];
-        Disc disc = findDisc(point);
-        disc.place(discState);
-        switchTurn();
-        return disc;
     }
 
     private void switchTurn() {

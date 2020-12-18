@@ -1,7 +1,7 @@
-package net.javaguides.springboot.websocket.models;
+package nl.fhict.websocket.models;
 
 import lombok.Getter;
-import net.javaguides.springboot.websocket.enums.DiscState;
+import nl.fhict.websocket.enums.DiscState;
 
 public class Disc {
     @Getter

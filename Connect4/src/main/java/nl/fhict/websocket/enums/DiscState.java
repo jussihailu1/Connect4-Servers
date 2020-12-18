@@ -1,4 +1,4 @@
-package net.javaguides.springboot.websocket.enums;
+package nl.fhict.websocket.enums;
 
 public enum DiscState {
     P1,

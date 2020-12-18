@@ -1,6 +1,6 @@
-package net.javaguides.springboot.websocket.logics;
+package nl.fhict.websocket.logics;
 
-import net.javaguides.springboot.websocket.models.Disc;
+import nl.fhict.websocket.models.Disc;
 
 import java.util.ArrayList;
 

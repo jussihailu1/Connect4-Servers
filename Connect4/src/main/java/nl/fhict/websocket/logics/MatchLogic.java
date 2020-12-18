@@ -1,26 +1,28 @@
-package net.javaguides.springboot.websocket.logics;
+package nl.fhict.websocket.logics;
 
 
-import net.javaguides.springboot.websocket.models.Disc;
-import net.javaguides.springboot.websocket.models.Match;
-import net.javaguides.springboot.websocket.models.Player;
-import net.javaguides.springboot.websocket.models.Point;
+import nl.fhict.websocket.controller.MessageController;
+import nl.fhict.websocket.models.Disc;
+import nl.fhict.websocket.models.Match;
+import nl.fhict.websocket.models.Player;
+import nl.fhict.websocket.models.Point;
 
 import java.util.ArrayList;
 
 public class MatchLogic {
     private static MatchLogic INSTANCE;
 
-    private MatchLogic() {
+    private MatchLogic(MessageController controller) {
         this.matches = new ArrayList<>();
         this.openMatchAvailable = false;
         this.openMatch = null;
         this.checkWinLogic = CheckWinLogic.getInstance();
+        this.controller = controller;
     }
 
-    public static MatchLogic getInstance() {
+    public static MatchLogic getInstance(MessageController controller) {
         if(INSTANCE == null) {
-            INSTANCE = new MatchLogic();
+            INSTANCE = new MatchLogic(controller);
         }
 
         return INSTANCE;
@@ -30,8 +32,10 @@ public class MatchLogic {
     private boolean openMatchAvailable;
     private Match openMatch;
     private CheckWinLogic checkWinLogic;
+    private MessageController controller;
 
-    public Match searchMatch(Player player){
+    public Match searchMatch(String username){
+        Player player = new Player(username);
         if (openMatchAvailable){
             joinOpenMatch(player);
             return openMatch;
@@ -42,7 +46,8 @@ public class MatchLogic {
     }
 
     private void newMatch(Player player){
-        Match newMatch = new Match(player);
+        Match newMatch = new Match(player, matches.size());
+        matches.add(newMatch);
         openMatch = newMatch;
         openMatchAvailable = true;
     }
@@ -55,7 +60,11 @@ public class MatchLogic {
     public void placeDisc(int lobbyId, Point point){
         Match match = findMatch(lobbyId);
         Disc disc = match.placeDisc(point);
-        checkWin(match, disc);
+        if(checkWin(match, disc)){
+            controller.sendWinMessage(match.getPlayers(), match.getLastPlacedPlayer());
+        }else{
+            controller.sendPlaceDiscMessage(match, disc, true); // TODO: check if can be placed!!!
+        }
     }
 
     private boolean checkWin(Match match, Disc disc){
