@@ -41,6 +41,13 @@ public class Match {
     private void initiateGame() {
         createGrid();
         setRandomTurn();
+        setPlayersIds();
+    }
+
+    private void setPlayersIds(){
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).setId(i);
+        }
     }
 
     private void setRandomTurn() {
