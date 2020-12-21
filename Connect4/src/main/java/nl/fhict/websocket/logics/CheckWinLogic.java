@@ -20,14 +20,10 @@ public class CheckWinLogic {
 
     private ArrayList<ArrayList<Disc>> grid;
     private Disc disc;
-    private int leftCount;
-    private int rightCount;
 
     public boolean checkWin(ArrayList<ArrayList<Disc>> grid, Disc disc) {
         this.grid = grid;
         this.disc = disc;
-        this.leftCount = 0;
-        this.rightCount = 0;
 
         if (checkVertical()) {
             return true;
@@ -60,28 +56,53 @@ public class CheckWinLogic {
     }
 
     private boolean checkHorizontal() {
+        checkSide(0);
+        if (count == 3) { return true; }
         return false;
     }
 
-    private void checkLeft(int incrementX){
-        if (grid.get(disc.getPoint().getX() - incrementX) != null) {
-            if (getDiscOnSide(incrementX).getDiscState() == disc.getDiscState()) {
-                leftCount++;
-                checkLeft(++incrementX);
+    private boolean checkingLeft = true;
+    private boolean checkingRight = false;
+    private int count = 0;
+
+    private void checkSide(int incr){
+        if(!checkingLeft && !checkingRight){
+            return;
+        }
+
+        if (checkingLeft) {
+            incr--;
+        } else {
+            incr++;
+        }
+
+        if (grid.get(disc.getPoint().getX() - incr) != null) {
+            if (grid.get(disc.getPoint().getX() - incr).get(disc.getPoint().getY()).getDiscState() == disc.getDiscState()) {
+                count++;
+                checkSide(incr);
             } else {
-                checkRight(1);
+                if (!checkingRight) {
+                    checkingLeft = false;
+                    checkingRight = true;
+                    checkSide(0);
+                } else {
+                    checkingRight = false;
+                    checkSide(0);
+                }
             }
         } else {
-            checkRight(1);
+            if (!checkingRight) {
+                checkingLeft = false;
+                checkingRight = true;
+                checkSide(0);
+            } else{
+                checkingRight = false;
+            }
         }
     }
 
     private Disc getDiscOnSide(int offsetX){
         return grid.get(disc.getPoint().getX() - offsetX).get(disc.getPoint().getY());
-    }
-
-    private void checkRight(int incrementX){
-
     }
 
     private boolean checkDiagonalLeft() {

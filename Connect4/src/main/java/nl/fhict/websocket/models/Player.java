@@ -12,4 +12,8 @@ public class Player {
         this.username = username;
         this.discCount = 21;
     }
+
+    public void decreaseDiscCount() {
+        discCount--;
+    }
 }

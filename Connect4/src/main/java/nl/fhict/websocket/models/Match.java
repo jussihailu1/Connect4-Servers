@@ -30,12 +30,14 @@ public class Match {
         DiscState discState = DiscState.values()[turn];
         Disc disc = findDisc(point);
         disc.place(discState);
+        players.get(turn).decreaseDiscCount();
         switchTurn();
         return disc;
     }
 
-    public Player getLastPlacedPlayer(){
-        return players.get(turn);
+    public Player getLastPlacedPlayer() {
+        int t = 1 - turn;
+        return players.get(t);
     }
 
     private void initiateGame() {
@@ -44,7 +46,7 @@ public class Match {
         setPlayersIds();
     }
 
-    private void setPlayersIds(){
+    private void setPlayersIds() {
         for (int i = 0; i < players.size(); i++) {
             players.get(i).setId(i);
         }
@@ -78,5 +80,9 @@ public class Match {
             }
         }
         return null;
+    }
+
+    public boolean discCanBePlaced(Point point) {
+        return point.getX() < 7 && point.getY() < 6;
     }
 }

@@ -18,7 +18,7 @@ public class Message {
     public int turn;
     public Disc disc;
     public boolean discIsPlaced;
-    public Player winner;
+    public Player player;
 
 //    Constructors with parameters for every situation
 //    Maybe singleton style like: Message messageOut = Message.get...Message(...,  ..., ...);

@@ -44,24 +44,33 @@ public class MessageController {
         matchLogic.placeDisc(messageIn.matchId, messageIn.point);
     }
 
-    public void sendPlaceDiscMessage(Match match, Disc disc, boolean discIsPlaced){
+    public void sendPlaceDiscMessage(Match match, Disc disc) {
         Message message = new Message();
         message.messageType = MessageType.PLACE_DISC;
         message.disc = disc;
-        message.discIsPlaced = discIsPlaced;
         message.turn = match.getTurn();
+        message.players = match.getPlayers();
         sendMessageToPlayers(match.getPlayers(), message);
     }
 
-    public void sendWinMessage(ArrayList<Player> players, Player winner){
+    public void sendWinMessage(ArrayList<Player> players, Disc disc, Player winner) {
         Message message = new Message();
         message.messageType = MessageType.GAME_WON;
-        message.winner = winner;
+        message.disc = disc;
+        message.players = players;
+        message.player = winner;
         // TODO: Send the "winning" discs along to highlight them.
         sendMessageToPlayers(players, message);
     }
 
-    private void sendMessageToPlayers(ArrayList<Player> players, Message message){
+    public void sendDiscNotPlacedMessage(ArrayList<Player> players) {
+        Message message = new Message();
+        message.messageType = MessageType.DISC_NOT_PLACED;
+        message.discIsPlaced = false; // TODO: This is kinda obvious
+        sendMessageToPlayers(players, message);
+    }
+
+    private void sendMessageToPlayers(ArrayList<Player> players, Message message) {
         for (Player player : players) {
             String destination = "/topic/" + player.getUsername();
             simpMessagingTemplate.convertAndSend(destination, message);

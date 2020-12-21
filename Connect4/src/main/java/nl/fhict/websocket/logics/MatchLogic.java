@@ -21,7 +21,7 @@ public class MatchLogic {
     }
 
     public static MatchLogic getInstance(MessageController controller) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new MatchLogic(controller);
         }
 
@@ -34,9 +34,9 @@ public class MatchLogic {
     private CheckWinLogic checkWinLogic;
     private MessageController controller;
 
-    public Match searchMatch(String username){
+    public Match searchMatch(String username) {
         Player player = new Player(username);
-        if (openMatchAvailable){
+        if (openMatchAvailable) {
             joinOpenMatch(player);
             return openMatch;
         }
@@ -45,36 +45,40 @@ public class MatchLogic {
         return null;
     }
 
-    private void newMatch(Player player){
+    private void newMatch(Player player) {
         Match newMatch = new Match(player, matches.size());
         matches.add(newMatch);
         openMatch = newMatch;
         openMatchAvailable = true;
     }
 
-    private void joinOpenMatch(Player player){
+    private void joinOpenMatch(Player player) {
         openMatch.addPlayer(player);
         openMatchAvailable = false;
     }
 
-    public void placeDisc(int lobbyId, Point point){
+    public void placeDisc(int lobbyId, Point point) {
         Match match = findMatch(lobbyId);
-        Disc disc = match.placeDisc(point);
-        if(checkWin(match, disc)){
-            controller.sendWinMessage(match.getPlayers(), match.getLastPlacedPlayer());
-        }else{
-            controller.sendPlaceDiscMessage(match, disc, true); // TODO: check if can be placed!!!
+        if (match.discCanBePlaced(point)) {
+            Disc disc = match.placeDisc(point);
+            if (checkWin(match, disc)) {
+                controller.sendWinMessage(match.getPlayers(), disc, match.getLastPlacedPlayer());
+            } else {
+                controller.sendPlaceDiscMessage(match, disc); // TODO: check if can be placed!!!
+            }
+        } else {
+            controller.sendDiscNotPlacedMessage(match.getPlayers());
         }
     }
 
-    private boolean checkWin(Match match, Disc disc){
-        if(match.getPlayers().get(match.getTurn()).getDiscCount() < 18){
+    private boolean checkWin(Match match, Disc disc) {
+        if (match.getLastPlacedPlayer().getDiscCount() < 18) {
             return checkWinLogic.checkWin(match.getGrid(), disc);
         }
         return false;
     }
 
-    private Match findMatch(int lobbyId){
+    private Match findMatch(int lobbyId) {
         return matches.stream().filter(m -> m.getId() == lobbyId).findAny().get();
     }
 }
