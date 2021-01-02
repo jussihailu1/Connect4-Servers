@@ -66,7 +66,6 @@ public class MessageController {
     public void sendDiscNotPlacedMessage(ArrayList<Player> players) {
         Message message = new Message();
         message.messageType = MessageType.DISC_NOT_PLACED;
-        message.discIsPlaced = false; // TODO: This is kinda obvious
         sendMessageToPlayers(players, message);
     }
 
