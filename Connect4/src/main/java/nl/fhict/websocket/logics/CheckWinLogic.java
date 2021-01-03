@@ -30,14 +30,17 @@ public class CheckWinLogic {
     private int leftCount;
     private int rightCount;
 
+    private ArrayList<Disc> winningDiscs;
+
+    public ArrayList<Disc> getWinningDiscs(){
+        return this.winningDiscs;
+    }
+
     public boolean checkWin(ArrayList<ArrayList<Disc>> grid, Disc disc) {
         this.grid = grid;
         this.disc = disc;
         this.gridWidth = grid.size();
         this.gridHeight = grid.get(0).size();
-        this.checkingLeft = true;
-        this.checkingRight = false;
-        this.count = 0;
 
         if (checkVertical()) {
             return true;
@@ -54,9 +57,21 @@ public class CheckWinLogic {
 
     private boolean checkVertical() {
         if (disc.getPoint().getY() < 3) {
-            if (disc.getDiscState() == getDiscBelow(1).getDiscState()) {
+            this.winningDiscs = new ArrayList<>();
+
+            Disc d1 = getDiscBelow(1);
+            if (disc.getDiscState() == d1.getDiscState()) {
+                winningDiscs.add(d1);
+
+                Disc d2 = getDiscBelow(2);
                 if (disc.getDiscState() == getDiscBelow(2).getDiscState()) {
+                    winningDiscs.add(d2);
+
+                    Disc d3 = getDiscBelow(3);
                     if (disc.getDiscState() == getDiscBelow(3).getDiscState()) {
+                        winningDiscs.add(d3);
+
+                        winningDiscs.add(disc);
                         return true;
                     }
                 }
@@ -70,8 +85,13 @@ public class CheckWinLogic {
     }
 
     private boolean checkHorizontal() {
+        this.checkingLeft = true;
+        this.checkingRight = false;
+        this.count = 0;
+        this.winningDiscs = new ArrayList<>();
         checkSide(0);
         if (count == 3) {
+            winningDiscs.add(disc);
             return true;
         }
         return false;
@@ -89,8 +109,10 @@ public class CheckWinLogic {
         }
 
         if (disc.getPoint().getX() - incr > -1) {
-            if (grid.get(disc.getPoint().getX() - incr).get(disc.getPoint().getY()).getDiscState() == disc.getDiscState()) {
+            Disc d = grid.get(disc.getPoint().getX() - incr).get(disc.getPoint().getY());
+            if (d.getDiscState() == disc.getDiscState()) {
                 count++;
+                winningDiscs.add(d);
                 checkSide(incr);
             } else {
                 if (!checkingRight) {
@@ -112,36 +134,46 @@ public class CheckWinLogic {
         }
     }
 
-    private Disc getDiscOnSide(int offsetX) {
-        return grid.get(disc.getPoint().getX() - offsetX).get(disc.getPoint().getY());
-    }
-
     private boolean checkDiagonalLeft() {
-        leftCount = 0;
-        rightCount = 0;
+        this.checkingLeft = true;
+        this.checkingRight = false;
+        this.count = 0;
+        this.leftCount = 0;
+        this.rightCount = 0;
+        this.winningDiscs = new ArrayList<>();
 
         checkLeftDown(1);
 
         if (leftCount + rightCount == 3) {
+            winningDiscs.add(disc);
             return true;
         }
         return false;
     }
 
     private boolean checkDiagonalRight() {
-        leftCount = 0;
-        rightCount = 0;
+        this.checkingLeft = true;
+        this.checkingRight = false;
+        this.count = 0;
+        this.leftCount = 0;
+        this.rightCount = 0;
+        this.winningDiscs = new ArrayList<>();
 
         checkLeftUp(1);
 
-        if (leftCount + rightCount == 3) { return true; }
+        if (leftCount + rightCount == 3) {
+            winningDiscs.add(disc);
+            return true;
+        }
         return false;
     }
 
     private void checkLeftDown(int incr) {
         if (disc.getPoint().getX() - incr > -1 && disc.getPoint().getY() + incr < gridHeight) {
-            if (grid.get(disc.getPoint().getX() - incr).get(disc.getPoint().getY() + incr).getDiscState() == disc.getDiscState()) {
+            Disc d = grid.get(disc.getPoint().getX() - incr).get(disc.getPoint().getY() + incr);
+            if (d.getDiscState() == disc.getDiscState()) {
                 leftCount++;
+                winningDiscs.add(d);
                 checkLeftDown(++incr);
             } else {
                 checkRightUp(1);
@@ -153,8 +185,10 @@ public class CheckWinLogic {
 
     private void checkRightUp(int incr) {
         if (disc.getPoint().getX() + incr < gridWidth && disc.getPoint().getY() - incr > -1) {
-            if (grid.get(disc.getPoint().getX() + incr).get(disc.getPoint().getY() - incr).getDiscState() == disc.getDiscState()) {
+            Disc d = grid.get(disc.getPoint().getX() + incr).get(disc.getPoint().getY() - incr);
+            if (d.getDiscState() == disc.getDiscState()) {
                 rightCount++;
+                winningDiscs.add(d);
                 checkRightUp(++incr);
             }
         }
@@ -162,8 +196,10 @@ public class CheckWinLogic {
 
     private void checkLeftUp(int incr) {
         if (disc.getPoint().getX() - incr > -1 && disc.getPoint().getY() - incr > -1) {
-            if (grid.get(disc.getPoint().getX() - incr).get(disc.getPoint().getY() - incr).getDiscState() == disc.getDiscState()) {
+            Disc d = grid.get(disc.getPoint().getX() - incr).get(disc.getPoint().getY() - incr);
+            if (d.getDiscState() == disc.getDiscState()) {
                 leftCount++;
+                winningDiscs.add(d);
                 checkLeftUp(++incr);
             } else {
                 checkRightDown(1);
@@ -175,7 +211,9 @@ public class CheckWinLogic {
 
     private void checkRightDown(int incr) {
         if (disc.getPoint().getX() + incr < gridWidth && disc.getPoint().getY() + incr < gridHeight) {
-            if (grid.get(disc.getPoint().getX() + incr).get(disc.getPoint().getY() + incr).getDiscState() == disc.getDiscState()) {
+            Disc d = grid.get(disc.getPoint().getX() + incr).get(disc.getPoint().getY() + incr);
+            if (d.getDiscState() == disc.getDiscState()) {
+                winningDiscs.add(d);
                 rightCount++;
                 checkRightDown(++incr);
             }

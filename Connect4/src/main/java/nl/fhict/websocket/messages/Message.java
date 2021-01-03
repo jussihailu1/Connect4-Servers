@@ -17,7 +17,7 @@ public class Message {
     public int matchId;
     public int turn;
     public Disc disc;
-    public boolean discIsPlaced;
+    public ArrayList<Disc> winningDiscs;
     public Player player;
 
 //    Constructors with parameters for every situation

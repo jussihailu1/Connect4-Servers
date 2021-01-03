@@ -53,13 +53,13 @@ public class MessageController {
         sendMessageToPlayers(match.getPlayers(), message);
     }
 
-    public void sendWinMessage(ArrayList<Player> players, Disc disc, Player winner) {
+    public void sendWinMessage(ArrayList<Player> players, Disc disc, ArrayList<Disc> winningDiscs, Player winner) {
         Message message = new Message();
         message.messageType = MessageType.GAME_WON;
         message.disc = disc;
+        message.winningDiscs = winningDiscs;
         message.players = players;
         message.player = winner;
-        // TODO: Send the "winning" discs along to highlight them.
         sendMessageToPlayers(players, message);
     }
 
