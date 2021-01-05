@@ -14,11 +14,17 @@ public class Match {
     private ArrayList<ArrayList<Disc>> grid;
     @Getter
     private int turn;
+    @Getter
+    private int gridWidth;
+    @Getter
+    private int gridHeight;
 
     public Match(Player player, int id) {
         this.id = id;
         players = new ArrayList<>();
         players.add(player);
+        gridWidth = 7;
+        gridHeight = 6;
     }
 
     public void addPlayer(Player player) {
@@ -58,9 +64,9 @@ public class Match {
 
     private void createGrid() {
         grid = new ArrayList<>();
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < gridWidth; x++) {
             ArrayList<Disc> column = new ArrayList<>();
-            for (int y = 0; y < 6; y++) {
+            for (int y = 0; y < gridHeight; y++) {
                 column.add(new Disc(new Point(x, y)));
             }
             grid.add(column);
@@ -83,6 +89,6 @@ public class Match {
     }
 
     public boolean discCanBePlaced(Point point) {
-        return point.getX() < 7 && point.getY() < 6;
+        return point.getX() < gridWidth && point.getY() < gridHeight && findDisc(point) != null;
     }
 }

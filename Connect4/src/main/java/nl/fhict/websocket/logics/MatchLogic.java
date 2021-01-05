@@ -73,7 +73,7 @@ public class MatchLogic {
 
     private boolean checkWin(Match match, Disc disc) {
         if (match.getLastPlacedPlayer().getDiscCount() < 18) {
-            return checkWinLogic.checkWin(match.getGrid(), disc);
+            return checkWinLogic.checkWin(match.getGrid(), match.getGridWidth(), match.getGridHeight(), disc);
         }
         return false;
     }

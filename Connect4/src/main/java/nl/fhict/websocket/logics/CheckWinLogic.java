@@ -36,11 +36,11 @@ public class CheckWinLogic {
         return this.winningDiscs;
     }
 
-    public boolean checkWin(ArrayList<ArrayList<Disc>> grid, Disc disc) {
+    public boolean checkWin(ArrayList<ArrayList<Disc>> grid, int gridWidth, int gridHeight, Disc disc) {
         this.grid = grid;
         this.disc = disc;
-        this.gridWidth = grid.size();
-        this.gridHeight = grid.get(0).size();
+        this.gridWidth = gridWidth;
+        this.gridHeight = gridHeight;
 
         if (checkVertical()) {
             return true;
