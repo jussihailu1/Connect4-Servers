@@ -1,0 +1,12 @@
+nl\fhict\websocket\models\Player.class
+nl\fhict\websocket\logics\CheckWinLogic.class
+nl\fhict\websocket\models\Disc.class
+nl\fhict\websocket\Application.class
+nl\fhict\websocket\enums\DiscState.class
+nl\fhict\websocket\enums\MessageType.class
+nl\fhict\websocket\controller\MessageController.class
+nl\fhict\websocket\models\Match.class
+nl\fhict\websocket\messages\Message.class
+nl\fhict\websocket\config\WebSocketConfig.class
+nl\fhict\websocket\logics\MatchLogic.class
+nl\fhict\websocket\models\Point.class
