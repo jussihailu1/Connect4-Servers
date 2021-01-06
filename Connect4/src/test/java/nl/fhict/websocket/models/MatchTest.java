@@ -132,7 +132,7 @@ class MatchTest {
 
         double average = sum / totalTests;
 
-        boolean turnIsSetRandomly = average > 0.49 && average < 0.51;
+        boolean turnIsSetRandomly = average > 0.45 && average < 0.55;
 
         assertTrue(turnIsSetRandomly);
     }
