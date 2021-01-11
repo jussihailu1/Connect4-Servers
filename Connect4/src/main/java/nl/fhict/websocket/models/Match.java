@@ -3,6 +3,7 @@ package nl.fhict.websocket.models;
 import lombok.Getter;
 import nl.fhict.websocket.enums.DiscState;
 
+
 import java.util.ArrayList;
 
 public class Match {

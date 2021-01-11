@@ -5,5 +5,3 @@ public enum DiscState {
     P2,
     NOT_CLICKED
 }
-
-// TODO: front end discstate aanpassen op dit

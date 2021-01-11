@@ -64,6 +64,10 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <sonar.projectKey>414093_Connect-4</sonar.projectKey>
+        <sonar.organization>414093</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+<!--        mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar       -->
     </properties>
 
     <build>
