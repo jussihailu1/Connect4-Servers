@@ -5,6 +5,8 @@
 
 trigger:
 - main
+- development
+- test
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -20,3 +22,15 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: '414093'
+    scannerMode: 'Other'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner,
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=414093_Connect-4
+      sonar.projectName=Connect 4
