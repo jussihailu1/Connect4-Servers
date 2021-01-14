@@ -6,6 +6,7 @@ import nl.fhict.websocket.messages.Message;
 import nl.fhict.websocket.models.Disc;
 import nl.fhict.websocket.models.Match;
 import nl.fhict.websocket.models.Player;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,12 @@ import java.util.ArrayList;
 
 @Controller
 public class MessageController {
-    private final SimpMessagingTemplate simpMessagingTemplate;
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
     private MatchLogic matchLogic;
 
-    public MessageController(SimpMessagingTemplate simpMessagingTemplate) {
-        this.simpMessagingTemplate = simpMessagingTemplate;
+    public MessageController() {
         matchLogic = MatchLogic.getInstance(this);
     }
 
