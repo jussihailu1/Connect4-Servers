@@ -64,7 +64,7 @@ public class MatchLogic {
             if (checkWin(match, disc)) {
                 controller.sendWinMessage(match.getPlayers(), disc, checkWinLogic.getWinningDiscs(), match.getLastPlacedPlayer());
             } else {
-                controller.sendPlaceDiscMessage(match, disc); // TODO: check if can be placed!!!
+                controller.sendPlaceDiscMessage(match, disc);
             }
         } else {
             controller.sendDiscNotPlacedMessage(match.getPlayers());
