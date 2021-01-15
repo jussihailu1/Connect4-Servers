@@ -49,21 +49,4 @@ public class TestMatchLogic {
         assertEquals(player1, match.getPlayers().get(0).getUsername());
         assertEquals(player2, match.getPlayers().get(1).getUsername());
     }
-
-    @Test
-    public void placeDisc_Test(){
-        String player1 = "player1";
-        String player2 = "player2";
-        matchLogic.searchMatch(player1);
-        Match match = matchLogic.searchMatch(player2);
-        int matchId = match.getId();
-        int pointX = 6;
-        int pointY = 2;
-        Point point = new Point(pointX, pointY);
-
-        matchLogic.placeDisc(matchId, point);
-        Disc placedDisc = match.getGrid().get(pointX).get(pointY);
-
-        assertNotNull(placedDisc);
-    }
 }
