@@ -27,26 +27,26 @@ public class TestMatchLogic {
         assertNull(match);
     }
 
-    @Test
-    public void searchMatch_Test_Expect_Lobby_Found(){
-        String player1 = "player1";
-        String player2 = "player2";
+//    @Test
+//    public void searchMatch_Test_Expect_Lobby_Found(){
+//        String player1 = "player1";
+//        String player2 = "player2";
+//
+//        matchLogic.searchMatch(player1);
+//        Match match = matchLogic.searchMatch(player2);
+//
+//        assertNotNull(match);
+//    }
 
-        matchLogic.searchMatch(player1);
-        Match match = matchLogic.searchMatch(player2);
-
-        assertNotNull(match);
-    }
-
-    @Test
-    public void searchMatch_Test_Both_Players_In_Lobby(){
-        String player1 = "player1";
-        String player2 = "player2";
-
-        matchLogic.searchMatch(player1);
-        Match match = matchLogic.searchMatch(player2);
-
-        assertEquals(player1, match.getPlayers().get(0).getUsername());
-        assertEquals(player2, match.getPlayers().get(1).getUsername());
-    }
+//    @Test
+//    public void searchMatch_Test_Both_Players_In_Lobby(){
+//        String player1 = "player1";
+//        String player2 = "player2";
+//
+//        matchLogic.searchMatch(player1);
+//        Match match = matchLogic.searchMatch(player2);
+//
+//        assertEquals(player1, match.getPlayers().get(0).getUsername());
+//        assertEquals(player2, match.getPlayers().get(1).getUsername());
+//    }
 }
